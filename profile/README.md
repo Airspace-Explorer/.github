@@ -63,6 +63,7 @@ architecture applications)
 
 ## Datasets
 https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=476  
+  
 AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며 이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.      
 - Type: AircraftDataset (Classes: "Bird", "Airplane", "Helicopter", "FighterPlane", "Paragliding", "Drone")
 - Train Datasets: 5760
