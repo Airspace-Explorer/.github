@@ -38,10 +38,39 @@ PyTorch: 1.13.0+cu116
 PyTorch compiling details: PyTorch built with:(- GCC 9.3, - C++ Version: 201402,- Intel(R) 64        
 architecture applications)  
 
-## 데이터세트  
+## Datasets
 ![ASD](https://github.com/Airspace-Explorer/.github/assets/104192273/46c5aa27-e176-4d59-9c72-51da3534ca09)  
 AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며   
-이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.  
+이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.      
+- Type: AircraftDataset (Classes: "Bird", "Airplane", "Helicopter", "FighterPlane", "Paragliding", "Drone")
+- Train Datasets: 5760
+- Validation Datasets: 1601
+- Test Datasets: 640
+
+## Data Augmentation
+추가로 다양한 환경에서의 객체 탐지율을 높이기 위해 학습 과정 중 아래와 같은 Data Augmentation 기법들을 적용하였다. 하지만 MMDetection은 파이프라인 내부에서 모델의 학습과 평가가 
+이루어지기 때문에 Augmentation이 적용 된 이후의 정확한 Datasets의  Size를 식별하기 불가능하다는 Issue가 존재하였다.
+- Brightness Distortion (이미지의 명도 변경)     
+ → brightness_delta=32    
+ → 최소값과 최대값이 각각 -32, 32인 균일 분포 함수의 Output을 통해 이미지의 명도를 변환 하였다.    
+-Contrast Distortion (이미지의 대비 변경)   
+  → contrast_range=(0.5, 1.5)   
+  →최소값과 최대값이 각각 0.5, 1.5인 균일분포함수의 Output을 통해 이용해 이미지의 대비를 변환 하였다. Contras Distortion은 Brightness Distortion과는 다르게 Sum이 아닌 Multiplication 연산을 수행하여 Pixel Intensity의 대비를 증가시킨다  
+- Saturation Distortion (이미지의 채도 변경)  
+  → saturation_range=(0.5, 1.5)   
+  → 최소값과 최대값이 각각 0.5, 1.5인 균일 분포 함수의 Output을 통해 이미지의 채도를 변환 하였다, H(Hue; 색조), S(Saturation; 채도), V(Value; 명도)에서 1의 인덱스를 갖는 S를 변경
+-Hue Distortion (이미지의 색상 변경)
+  → hue_delta=18
+-Resize (이미지의 사이즈 변경)
+  → img_scale=(1333, 800)
+-RandomFlip (이미지 회전)
+  → flip_ratio=0.5
+-Normalize (Pixel Intensity Normalization)
+ 
+
+
+
+
 
 
 
