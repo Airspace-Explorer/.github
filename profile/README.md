@@ -92,7 +92,7 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 
  
 ## Object Detection Model 학습 수행 결과
-[Faster-RCNN]  
+- [Faster-RCNN]  
 Faster-RCNN Learning Rate   
 ![lr](https://github.com/Airspace-Explorer/.github/assets/104192273/873b2eed-aace-4c9f-8fce-bb6413a8d5f9)  
 Faster-RCNN Accuracy & Train_loss  
@@ -100,7 +100,7 @@ Faster-RCNN Accuracy & Train_loss
 Faster_RCNN mAP  
 ![faster_map](https://github.com/Airspace-Explorer/.github/assets/104192273/898e30fd-ed3f-4d97-bfe3-048de2a0f300)  
 
-[YOLOF]
+- [YOLOF]
 YOLOF Learning Rate  
 ![yolo lr](https://github.com/Airspace-Explorer/.github/assets/104192273/9c2f5579-3b5b-4e16-a076-31825d4be620)  
 YOLOF Train_loss  
@@ -108,7 +108,7 @@ YOLOF Train_loss
 YOLOF mAP  
 ![yolo val](https://github.com/Airspace-Explorer/.github/assets/104192273/16939b6d-1027-4f0d-a04b-b45ea2858e41)
 
-[SSD]  
+- [SSD]  
 SSD Learning Rate  
 SSD Train_loss  
 SSD mAP  
