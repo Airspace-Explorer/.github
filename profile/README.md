@@ -16,7 +16,30 @@
 - DeepSORT에 대한 Detection Model Training, Evaluation & ReID Model Training, Evaluation
 - ReID Model을 사용한 DeepSORT Model과 ReID Model을 사용하지 않은 DeepSORT Model 간의 성능 비교
 
-## SPEC & Runtime Environment
+## Model Specification  
+Faster-RCNN  
+Backbone: ResNet50  
+Neck: FPN  
+RPN_head: RPNHead  
+Classification Loss: CE(Cross Entropy) Loss  
+Bounding Box Regression Loss: L1 Loss  
+
+YOLOF  
+Backbone: ResNet  
+Neck: DilatedEncoder  
+BBox_head: YOLOFHead  
+Classification Loss: Focal Loss  
+Bounding Box Regression Loss: GIoU Loss  
+
+SSD  
+Backbone: ResNet  
+Neck: SSDNeck  
+BBox_head: SSDHead  
+Classification Loss: Localization Loss  
+Bounding Box Regression Loss: IoU Loss  
+
+
+## 공통 SPEC & Runtime Environment
 [공통 Spec]  
 Framework: MMDetection  
 Learning_rate=0.02 / 8  
