@@ -62,9 +62,8 @@ PyTorch compiling details: PyTorch built with:(- GCC 9.3, - C++ Version: 201402,
 architecture applications)  
 
 ## Datasets
-![ASD](https://github.com/Airspace-Explorer/.github/assets/104192273/46c5aa27-e176-4d59-9c72-51da3534ca09)  
-AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며   
-이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.      
+[![ASD](https://github.com/Airspace-Explorer/.github/assets/104192273/46c5aa27-e176-4d59-9c72-51da3534ca09)  ](https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=476)    
+AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며 이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.      
 - Type: AircraftDataset (Classes: "Bird", "Airplane", "Helicopter", "FighterPlane", "Paragliding", "Drone")
 - Train Datasets: 5760
 - Validation Datasets: 1601
@@ -89,6 +88,7 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 - RandomFlip (이미지 회전)  
   → flip_ratio=0.5  
 - Normalize (Pixel Intensity Normalization)  
+
  
 
 
