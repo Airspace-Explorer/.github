@@ -1,6 +1,6 @@
 # 데이터분석캡스톤디자인 프로젝트
 
-##  팀명: Airspace-Explorer 
+##  Airspace-Explorer 
 - 지도 교수: 이대호
 - 팀원:  
   소프트웨어융합학과 구현서 2018102091 (PM)  
