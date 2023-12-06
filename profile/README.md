@@ -112,6 +112,7 @@ YOLOF mAP
 SSD Learning Rate  
 
 SSD Train_loss  
+![DASD](https://github.com/Airspace-Explorer/.github/assets/104192273/55bf1b47-044f-4c34-bd13-0477b92a4d1d)  
 
 SSD mAP  
 ![ASASQ](https://github.com/Airspace-Explorer/.github/assets/104192273/18b91464-5e9b-4a8f-a0fe-367a2b874ca9)  
@@ -129,17 +130,19 @@ Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkp
   ![12345](https://github.com/Airspace-Explorer/.github/assets/104192273/224c379e-5003-445c-846c-78faec6fd15d)
   
 본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 
-
+## 3개의 모델 Inference 결과  
+  
 ## 최종결과물 주요 특징 및 설명  
   
 ### [Object Detection]  
   
 공통으로 ResNet계열의 BackBone 과 각기 다른 Neck,Head를 가지고 있다.학습 수행 결과에서 주요 차이점은 2-stage-detector Faster_RCNN에선 Feature Pyramid Network(FPN)을 사용하여 다양한 스케일로 feature map을 추출했고 Cross Entropy Loss로 class를 분류하여 L1 Loss를 통한 regression으로 높은 accuracy를 달성했다. 1-stage-detector인 YOLOF는 DilatedEncoder와 Focal Loss,GIoU Loss를 사용했고 SSD는 SSDNeck,SSDHead,Localization Loss,IoU Loss 를 사용하였다. 종합적인 결과: 모델 각각의 특징에 맞는 Neck,Head 적용과 Data augmentation을 적용하여 0.8이상의 높은 mAP를 보인다. 프로젝트를 통해 Small Size를 갖는 조류 및 비행물체를 높은 성능으로 탐지하고 실시간 추적하는 모델을 구축하였다. 따라서 해당 모델을 적용한다면, 조류나 비행물체 뿐만 아니라 다른 Small Object에 관한 높은 성능의 Detection 및 실시간 추적이 가능하다고 기대된다. 
+  
 ### [Object Tracking]  
   
 DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모델을 통해 사람과 같은 Object 간 고유하게 구별되는 특징을 갖는 데이터를 학습하고, 이로부터 Id-switching이나 Occlusion(폐색) 문제를 해결하였다. 하지만 본 프로젝트의 사용된 Training Datasets은 Small Size의 조류나 비행기, 드론과 같은 상공 비행 물체이기 때문에, 이전 논문들과 달리 하나의 Class내에서 Object들을 고유하게 분류할만한 특징이 없을 것이라 예상하였다. 그러나 Re-identification 모델 학습 유무에 따라 Object Tracking 성능이 달라지는 것을 확인하였고, 이로부터 Re-identification 모델이 다형성 및 활용성 부분에서 향상됨을 증명하였다.
 
-
+## Deep Sort 데모 영상 
 
 
 
