@@ -1,12 +1,9 @@
-## Hi there 👋
+## 데이터분석캡스톤디자인 프로젝트
 
-<!--
+#  팀명: Airspace-Explorer 
+- 지도 교수: 이대호
+- 팀원:소프트웨어융합학과 구현서 2018102091,소프트웨어융합학과 김민환 2019102081,소프트웨어융합학과 이정원 2020110480
 
-**Here are some ideas to get you started:**
+  # 과제 개요
+  
 
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
