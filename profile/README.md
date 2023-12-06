@@ -116,7 +116,8 @@ SSD Train_loss
 ![DASD](https://github.com/Airspace-Explorer/.github/assets/104192273/55bf1b47-044f-4c34-bd13-0477b92a4d1d)  
 
 SSD mAP  
-![ASASQ](https://github.com/Airspace-Explorer/.github/assets/104192273/18b91464-5e9b-4a8f-a0fe-367a2b874ca9)
+![bfs](https://github.com/Airspace-Explorer/.github/assets/104192273/6637bf45-ac09-4a6c-9357-a4f59b9f7416)
+
 ## 8.세 모델 Inference 결과  
 ## 9.DeepSORT를 이용한 Multi Object Tracking 결과  
 MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. 
