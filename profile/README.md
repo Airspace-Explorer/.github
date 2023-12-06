@@ -112,7 +112,31 @@ YOLOF mAP
 SSD Learning Rate  
 SSD Train_loss  
 SSD mAP  
-![ASASQ](https://github.com/Airspace-Explorer/.github/assets/104192273/18b91464-5e9b-4a8f-a0fe-367a2b874ca9)
+![ASASQ](https://github.com/Airspace-Explorer/.github/assets/104192273/18b91464-5e9b-4a8f-a0fe-367a2b874ca9)  
+  
+
+## DeepSORT를 이용한 Multi Object Tracking 결과  
+MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. 
+Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤   
+적용하였다. ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 모델은 객체를 식별하기가 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히   
+크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 결론적으로 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이   
+객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는 사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다.  
+그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 같은 결과를 도출할 수 있었다.  
+  
+- ReID Model Training 결과
+![CXAQ](https://github.com/Airspace-Explorer/.github/assets/104192273/b1b6692f-67ea-413c-876d-581471beeaea)  
+
+- ReID Model을 사용하지 않은 경우 DeepSORT 성능 평가(MOTA: 85.3%, MOTP: 0.228)
+  ![FER](https://github.com/Airspace-Explorer/.github/assets/104192273/6dfcb68a-6edb-416e-88b9-5cd538b56d39)
+- ReID Model을 사용한 경우 DeepSORT 성능 평가(MOTA: 93.0%, MOTP: 0.212)
+  ![12345](https://github.com/Airspace-Explorer/.github/assets/104192273/224c379e-5003-445c-846c-78faec6fd15d)
+  
+본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 
+
+
+
+  
+  
 
 
 
