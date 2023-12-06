@@ -52,20 +52,20 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 이루어지기 때문에 Augmentation이 적용 된 이후의 정확한 Datasets의  Size를 식별하기 불가능하다는 Issue가 존재하였다.
 - Brightness Distortion (이미지의 명도 변경)     
  → brightness_delta=32    
- → 최소값과 최대값이 각각 -32, 32인 균일 분포 함수의 Output을 통해 이미지의 명도를 변환 하였다.    
--Contrast Distortion (이미지의 대비 변경)   
+ → 최소값과 최대값이 각각 -32, 32인 균일 분포 함수의 Output을 통해 이미지의 명도를 변환 하였다.      
+- Contrast Distortion (이미지의 대비 변경)   
   → contrast_range=(0.5, 1.5)   
   →최소값과 최대값이 각각 0.5, 1.5인 균일분포함수의 Output을 통해 이용해 이미지의 대비를 변환 하였다. Contras Distortion은 Brightness Distortion과는 다르게 Sum이 아닌 Multiplication 연산을 수행하여 Pixel Intensity의 대비를 증가시킨다  
 - Saturation Distortion (이미지의 채도 변경)  
   → saturation_range=(0.5, 1.5)   
   → 최소값과 최대값이 각각 0.5, 1.5인 균일 분포 함수의 Output을 통해 이미지의 채도를 변환 하였다, H(Hue; 색조), S(Saturation; 채도), V(Value; 명도)에서 1의 인덱스를 갖는 S를 변경
--Hue Distortion (이미지의 색상 변경)
-  → hue_delta=18
--Resize (이미지의 사이즈 변경)
-  → img_scale=(1333, 800)
--RandomFlip (이미지 회전)
-  → flip_ratio=0.5
--Normalize (Pixel Intensity Normalization)
+- Hue Distortion (이미지의 색상 변경)  
+  → hue_delta=18  
+- Resize (이미지의 사이즈 변경)  
+  → img_scale=(1333, 800)  
+- RandomFlip (이미지 회전)  
+  → flip_ratio=0.5  
+- Normalize (Pixel Intensity Normalization)  
  
 
 
