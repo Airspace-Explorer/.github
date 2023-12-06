@@ -6,15 +6,18 @@
   소프트웨어융합학과 구현서 2018102091 (PM)  
   소프트웨어융합학과 김민환 2019102081  
   소프트웨어융합학과 이정원 2020110480  
+
   
 ## 1.개요
 [조류 충돌]      
 우리 말로 '조류 충돌'이라고 불리는 '버드 스트라이크(Bird Strike)'는 조류가 비행기에 부딪히거나 엔진 속에 빨려 들어가는 현상을 말한다. 주로 공항 부근, 그리고 이착륙 시 주로 발생하는데, 우리나라에서는 조류충돌 사고가 매년 100~200건 이상 발생 하고 있으며 지난해 미국 연방항공청에서는 1만 7천 건이 넘는 신고가 접수 되었다. 실제로 1.8kg의 새가 시속 960km로 비행하는 항공기와 부딪치면 64t 무게의 충격이 발생하며, 전 세계적 피해규모는 연간 약 1조원으로 추정된다. 최근 5년간 항공기-조류간 충돌은 주로 공항구역에서 발생하고 있으며, 이를 예방하기 위해 공항에서는 사격팀 운영, 천적류 사육을 통해 노력하고 있지만 효과가 미비한 상황이다. 그래서 본팀은 최소 수십명에서 많게는 수백명 이상의 사망자를 발생시키는 버드 스트라이크 방지를 위해 Faster-RCNN, YOLOF, SSD 기반의 조류를 실시간으로 Detection 하는 모델을 학습을 통해 구축하여 다양한 기상 환경에서 비행중인 상공물체(조류)를 실시간으로 탐지할 것이며, 또한 Detection 모델과 ReID 모델을 결합하여 DeepSORT 모델을 구축한 뒤 실시간으로 상공 물체(조류)를 추적 할 것이다.
+
   
 ## 2.프로젝트 목표  
 - 3개의 Object Detection Model(Faster-RCNN, YOLOF, SSD) Training & Evaluation & Visualization & Inference 및 성능 최적화 수행
 - DeepSORT에 대한 Detection Model Training, Evaluation & ReID Model Training, Evaluation
 - ReID Model을 사용한 DeepSORT Model과 ReID Model을 사용하지 않은 DeepSORT Model 간의 성능 비교
+
   
 ## 3.Model Specification  
 Faster-RCNN  
@@ -38,6 +41,7 @@ BBox_head: SSDHead
 Classification Loss: Localization Loss  
 Bounding Box Regression Loss: IoU Loss  
 
+
   
 ## 4.공통 SPEC & Runtime Environment
 [공통 Spec]  
@@ -60,6 +64,7 @@ GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 PyTorch: 1.13.0+cu116  
 PyTorch compiling details: PyTorch built with:(- GCC 9.3, - C++ Version: 201402,- Intel(R) 64        
 architecture applications)  
+
   
 ## 5.Datasets
 https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=476  
@@ -69,6 +74,7 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 - Train Datasets: 5760
 - Validation Datasets: 1601
 - Test Datasets: 640
+
   
 ## 6.Data Augmentation
 추가로 다양한 환경에서의 객체 탐지율을 높이기 위해 학습 과정 중 아래와 같은 Data Augmentation 기법들을 적용하였다. 하지만 MMDetection은 파이프라인 내부에서 모델의 학습과 평가가 
@@ -89,6 +95,7 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 - RandomFlip (이미지 회전)  
   → flip_ratio=0.5  
 - Normalize (Pixel Intensity Normalization)  
+
 
    
 ## 7.Object Detection Model 학습 수행 결과
@@ -117,8 +124,10 @@ SSD Train_loss
 
 SSD mAP  
 ![bfs](https://github.com/Airspace-Explorer/.github/assets/104192273/6637bf45-ac09-4a6c-9357-a4f59b9f7416)
+
   
 ## 8.세 모델 Inference 결과  
+
   
 ## 9.DeepSORT를 이용한 Multi Object Tracking 결과  
 MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. 
@@ -133,9 +142,10 @@ Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkp
   ![12345](https://github.com/Airspace-Explorer/.github/assets/104192273/224c379e-5003-445c-846c-78faec6fd15d)
   
 본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 
+
   
 ## 10.최종결과물 주요 특징 및 설명  
-    
+  
 ### [Object Detection]  
   
 공통으로 ResNet계열의 BackBone 과 각기 다른 Neck,Head를 가지고 있다.학습 수행 결과에서 주요 차이점은 2-stage-detector Faster_RCNN에선 Feature Pyramid Network(FPN)을 사용하여 다양한 스케일로 feature map을 추출했고 Cross Entropy Loss로 class를 분류하여 L1 Loss를 통한 regression으로 높은 accuracy를 달성했다. 1-stage-detector인 YOLOF는 DilatedEncoder와 Focal Loss,GIoU Loss를 사용했고 SSD는 SSDNeck,SSDHead,Localization Loss,IoU Loss 를 사용하였다. 종합적인 결과: 모델 각각의 특징에 맞는 Neck,Head 적용과 Data augmentation을 적용하여 0.8이상의 높은 mAP를 보인다. 프로젝트를 통해 Small Size를 갖는 조류 및 비행물체를 높은 성능으로 탐지하고 실시간 추적하는 모델을 구축하였다. 따라서 해당 모델을 적용한다면, 조류나 비행물체 뿐만 아니라 다른 Small Object에 관한 높은 성능의 Detection 및 실시간 추적이 가능하다고 기대된다. 
@@ -143,8 +153,10 @@ Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkp
 ### [Object Tracking]  
   
 DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모델을 통해 사람과 같은 Object 간 고유하게 구별되는 특징을 갖는 데이터를 학습하고, 이로부터 Id-switching이나 Occlusion(폐색) 문제를 해결하였다. 하지만 본 프로젝트의 사용된 Training Datasets은 Small Size의 조류나 비행기, 드론과 같은 상공 비행 물체이기 때문에, 이전 논문들과 달리 하나의 Class내에서 Object들을 고유하게 분류할만한 특징이 없을 것이라 예상하였다. 그러나 Re-identification 모델 학습 유무에 따라 Object Tracking 성능이 달라지는 것을 확인하였고, 이로부터 Re-identification 모델이 다형성 및 활용성 부분에서 향상됨을 증명하였다.
+
   
 ## 11.Deep Sort 데모 영상 
+
   
 ## 12.기대효과 및 활용 방안  
   
@@ -161,6 +173,7 @@ DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모�
 - 해상 감시 및 경계 보안→ 해군 및 경비 당국은 물체 탐지 및 추적 기술을 해상 감시에 활용하여 침입이나 위험한 상황을 신속히 감지하고 대응할 수 있다.
 - 환경 보전 및 생태학 연구→ 환경 당국 및 연구 기관은 물체 추적 기술을 이용하여 조류 및 동물의 이동을 연구하고 환경 보전 활동에 활용할 수 있다.
 - 연구 및 교육 기관→ 대학 및 연구 기관은 수집된 데이터셋과 모델을 활용하여 객체 탐지 및 추적에 관한 연구를 수행하고, 교육 과정에 활용할 수 있다.
+
     
 ## 13.결론 및 제언  
 프로젝트 결과로 얻은 모델과 데이터는 항공 및 국방 관련 산업에서의 안전 및 효율성 향상에 큰 기여를 할 것으로 기대된다. 미래에는 더 많은 데이터를 수집하고 모델을 튜닝하여 다양한 상황에서의 적용 가능성을 높일수 있을것이다.
