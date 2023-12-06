@@ -117,11 +117,7 @@ SSD mAP
 
 ## DeepSORT를 이용한 Multi Object Tracking 결과  
 MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. 
-Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤   
-적용하였다. ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 모델은 객체를 식별하기가 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히   
-크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 결론적으로 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이   
-객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는 사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다.  
-그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 같은 결과를 도출할 수 있었다.  
+Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤 적용하였다. ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 모델은 객체를 식별하기가 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히 크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 결론적으로 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이 객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는 사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다. 그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 같은 결과를 도출할 수 있었다.  
   
 - ReID Model Training 결과
 ![CXAQ](https://github.com/Airspace-Explorer/.github/assets/104192273/b1b6692f-67ea-413c-876d-581471beeaea)  
@@ -132,6 +128,17 @@ Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkp
   ![12345](https://github.com/Airspace-Explorer/.github/assets/104192273/224c379e-5003-445c-846c-78faec6fd15d)
   
 본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 
+
+## 최종결과물 주요 특징 및 설명  
+  
+### [Object Detection]  
+  
+공통으로 ResNet계열의 BackBone 과 각기 다른 Neck,Head를 가지고 있다.학습 수행 결과에서 주요 차이점은 2-stage-detector Faster_RCNN에선 Feature Pyramid Network(FPN)을 사용하여 다양한 스케일로 feature map을 추출했고 Cross Entropy Loss로 class를 분류하여 L1 Loss를 통한 regression으로 높은 accuracy를 달성했다. 1-stage-detector인 YOLOF는 DilatedEncoder와 Focal Loss,GIoU Loss를 사용했고 SSD는 SSDNeck,SSDHead,Localization Loss,IoU Loss 를 사용하였다. 종합적인 결과: 모델 각각의 특징에 맞는 Neck,Head 적용과 Data augmentation을 적용하여 0.8이상의 높은 mAP를 보인다. 프로젝트를 통해 Small Size를 갖는 조류 및 비행물체를 높은 성능으로 탐지하고 실시간 추적하는 모델을 구축하였다. 따라서 해당 모델을 적용한다면, 조류나 비행물체 뿐만 아니라 다른 Small Object에 관한 높은 성능의 Detection 및 실시간 추적이 가능하다고 기대된다. 
+### [Object Tracking]  
+  
+DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모델을 통해 사람과 같은 Object 간 고유하게 구별되는 특징을 갖는 데이터를 학습하고, 이로부터 Id-switching이나 Occlusion(폐색) 문제를 해결하였다. 하지만 본 프로젝트의 사용된 Training Datasets은 Small Size의 조류나 비행기, 드론과 같은 상공 비행 물체이기 때문에, 이전 논문들과 달리 하나의 Class내에서 Object들을 고유하게 분류할만한 특징이 없을 것이라 예상하였다. 그러나 Re-identification 모델 학습 유무에 따라 Object Tracking 성능이 달라지는 것을 확인하였고, 이로부터 Re-identification 모델이 다형성 및 활용성 부분에서 향상됨을 증명하였다.
+
+
 
 
 
