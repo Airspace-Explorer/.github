@@ -91,6 +91,34 @@ AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하�
 - Normalize (Pixel Intensity Normalization)  
 
  
+## Object Detection Model 학습 수행 결과
+[Faster-RCNN]  
+Faster-RCNN Learning Rate   
+![lr](https://github.com/Airspace-Explorer/.github/assets/104192273/873b2eed-aace-4c9f-8fce-bb6413a8d5f9)  
+Faster-RCNN Accuracy & Train_loss  
+![faster_rcnn_train](https://github.com/Airspace-Explorer/.github/assets/104192273/3040eeab-fbe5-4061-bdf8-9f501ba6d8de)  
+Faster_RCNN mAP  
+![faster_map](https://github.com/Airspace-Explorer/.github/assets/104192273/898e30fd-ed3f-4d97-bfe3-048de2a0f300)  
+
+[YOLOF]
+YOLOF Learning Rate  
+![yolo lr](https://github.com/Airspace-Explorer/.github/assets/104192273/9c2f5579-3b5b-4e16-a076-31825d4be620)  
+YOLOF Train_loss  
+![yolo tr](https://github.com/Airspace-Explorer/.github/assets/104192273/823a2bd7-62cf-473a-af67-2c0aee0ca189)  
+YOLOF mAP  
+![yolo val](https://github.com/Airspace-Explorer/.github/assets/104192273/16939b6d-1027-4f0d-a04b-b45ea2858e41)
+
+[SSD]  
+SSD Learning Rate  
+SSD Train_loss  
+SSD mAP  
+![ASASQ](https://github.com/Airspace-Explorer/.github/assets/104192273/18b91464-5e9b-4a8f-a0fe-367a2b874ca9)
+
+
+
+
+
+
 
 
 
