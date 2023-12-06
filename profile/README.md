@@ -127,6 +127,8 @@ SSD mAP
 
   
 ## 8.세 모델 Inference 결과  
+![asdxcz](https://github.com/Airspace-Explorer/.github/assets/104192273/1300493c-1966-4624-a7a2-fb22aa69c31e)  
+  
 
   
 ## 9.DeepSORT를 이용한 Multi Object Tracking 결과  
