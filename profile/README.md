@@ -16,7 +16,7 @@
 - DeepSORT에 대한 Detection Model Training, Evaluation & ReID Model Training, Evaluation
 - ReID Model을 사용한 DeepSORT Model과 ReID Model을 사용하지 않은 DeepSORT Model 간의 성능 비교
 
-## MODEL SPEC & RUNTIME ENVIRONMENT
+## SPEC & Runtime Environment
 [공통 Spec]  
 Framework: MMDetection  
 Learning_rate=0.02 / 8  
@@ -37,6 +37,12 @@ GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
 PyTorch: 1.13.0+cu116  
 PyTorch compiling details: PyTorch built with:(- GCC 9.3, - C++ Version: 201402,- Intel(R) 64        
 architecture applications)  
+
+## 데이터세트  
+![ASD](https://github.com/Airspace-Explorer/.github/assets/104192273/46c5aa27-e176-4d59-9c72-51da3534ca09)  
+AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며   
+이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.  
+
 
 
 
