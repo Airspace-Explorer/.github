@@ -126,7 +126,7 @@ SSD mAP
 ![bfs](https://github.com/Airspace-Explorer/.github/assets/104192273/6637bf45-ac09-4a6c-9357-a4f59b9f7416)
 
   
-## 8.세 모델 Inference 결과  
+## 8.모델 Inference 결과  
 ![asdxcz](https://github.com/Airspace-Explorer/.github/assets/104192273/1300493c-1966-4624-a7a2-fb22aa69c31e)  
   
 
