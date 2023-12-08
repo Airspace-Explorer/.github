@@ -133,14 +133,14 @@ SSD mAP
 ![asdxcz](https://github.com/Airspace-Explorer/.github/assets/104192273/1300493c-1966-4624-a7a2-fb22aa69c31e)  
 
 ## 9.Object Tracking Datasets  
-Detector와 ReID Model 학습 수행을 위해 CVAT Tool을 이용하여 Track Rectangle로 각각의 객체를 지정한 다음 Frame마다 상자를 이동시켜 추적 좌표를 저장하고 객체가 화면에서 사라질시 Switch OFF시켜 Ground Truth 파일을 산출했다.Train Dataset은 Video를 Frame Per Second 단위로 분할 뒤 저장한 다음,MMtracking의 mot2coco.py,mot2reid.py 파일을 이용해 MOT형식의 COCO Format Annotation과 Bounding Box 만 따로 추출한 ReID Datasets으로 변환하여 Multi Object Tracking Datasets을 구축하였다.
-                  [CVAT tool을 활용한 Custom DataSet labelling]  
+Detector와 ReID Model 학습 수행을 위해 CVAT Tool을 이용하여 Track Rectangle로 각각의 객체를 지정한 다음 Frame마다 상자를 이동시켜 추적 좌표를 저장하고 객체가 화면에서 사라질시 Switch OFF시켜 Ground Truth 파일을 산출했다.Train Dataset은 Video를 Frame Per Second 단위로 분할 뒤 저장한 다음,MMtracking의 mot2coco.py,mot2reid.py 파일을 이용해 MOT형식의 COCO Format Annotation과 Bounding Box 만 따로 추출한 ReID Datasets으로 변환하여 Multi Object Tracking Datasets을 구축하였다.  
+### [CVAT tool을 활용한 Custom DataSet Labelling]  
 ![1241](https://github.com/Airspace-Explorer/.github/assets/104192273/59b7163d-749e-4f58-b803-7096178aefee)  
-                  [산출된 Ground Truth 파일]  
+### [산출된 Ground Truth 파일]  
 ![asdq](https://github.com/Airspace-Explorer/.github/assets/104192273/5c8f484a-8e8b-4c87-89fc-56e4fb71594d)  
-                  [Video to Image]  
+### [Video to Image]  
 ![vd2](https://github.com/Airspace-Explorer/.github/assets/104192273/a4335efb-0e8c-4877-9bd8-e54b9c202bb6)  
-                  [최종 Multi Object Dataset Structure]  
+### [최종 Multi Object Dataset Structure]  
 ![zaza](https://github.com/Airspace-Explorer/.github/assets/104192273/9c43470b-87b1-4bba-9918-653c85711dd5)  
 
   
