@@ -142,7 +142,7 @@ MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID
 ![image](https://github.com/Airspace-Explorer/.github/assets/43543906/00eb1655-a4e3-49be-9975-d496e1e37755)
 
 ### [Triplet Loss → 0.000 (figure 2)] 
-Triplet Loss는 어떤 한 사람(Anchor)과 같은 사람(Positive), 다른 사람(Negative)이라는 파라미터를이용해 학습 시 미니 배치 안에서 Anchor, Positive, Negative들이 임베딩 된 값들의 유클리드 거리를 구해 아래와 같은 Loss 함수를 만든다.
+Triplet Loss는 어떤 한 객체(Anchor)와 같은 객체(Positive), 다른 객체(Negative)이라는 파라미터를이용해 학습 시 미니 배치 안에서 Anchor, Positive, Negative들이 임베딩 된 값들의 유클리드 거리를 구해 아래와 같은 Loss 함수를 만든다.
 
   ![image](https://github.com/Airspace-Explorer/.github/assets/43543906/a9b14d42-8214-473b-902d-ee0aaff85f69)
 
