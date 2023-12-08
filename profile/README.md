@@ -69,7 +69,7 @@ PyTorch compiling details: PyTorch built with:(- GCC 9.3, - C++ Version: 201402,
 architecture applications)  
 
   
-## 5.Datasets
+## 5.Object Detection Datasets
 https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=476  
   
 AI-Hub의 Small object detection을 위한 이미지 데이터셋을 이용하였다. 해당 데이터 셋에서는 이미지(2800x2100 해상도) 내에 일정 크기 이하의 소형 객체(200x200 픽셀 크기 이하)들만 존재하며 이미지에 대한 JSON 형태의 어노테이션 파일 또한 포함하고 있다.      
@@ -131,10 +131,20 @@ SSD mAP
   
 ## 8.모델 Inference 결과  
 ![asdxcz](https://github.com/Airspace-Explorer/.github/assets/104192273/1300493c-1966-4624-a7a2-fb22aa69c31e)  
-  
+
+## 9.Object Tracking Datasets  
+Detector와 ReID Model 학습 수행을 위해 CVAT Tool을 이용하여 Track Rectangle로 각각의 객체를 지정한 다음 Frame마다 상자를 이동시켜 추적 좌표를 저장하고 객체가 화면에서 사라질시 Switch OFF시켜 Ground Truth 파일을 산출했다.Train Dataset은 Video를 Frame Per Second 단위로 분할 뒤 저장한 다음,MMtracking의 mot2coco.py,mot2reid.py 파일을 이용해 MOT형식의 COCO Format Annotation과 Bounding Box 만 따로 추출한 ReID Datasets으로 변환하여 Multi Object Tracking Datasets을 구축하였다.
+                  [CVAT tool을 활용한 Custom DataSet labelling]  
+![1241](https://github.com/Airspace-Explorer/.github/assets/104192273/59b7163d-749e-4f58-b803-7096178aefee)  
+                  [산출된 Ground Truth 파일]  
+![asdq](https://github.com/Airspace-Explorer/.github/assets/104192273/5c8f484a-8e8b-4c87-89fc-56e4fb71594d)  
+                  [Video to Image]  
+![vd2](https://github.com/Airspace-Explorer/.github/assets/104192273/a4335efb-0e8c-4877-9bd8-e54b9c202bb6)  
+                  [최종 Multi Object Dataset Structure]  
+![zaza](https://github.com/Airspace-Explorer/.github/assets/104192273/9c43470b-87b1-4bba-9918-653c85711dd5)  
 
   
-## 9.DeepSORT를 이용한 Multi Object Tracking 결과  
+## 10.DeepSORT를 이용한 Multi Object Tracking 결과  
 MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤 적용하였다.  ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 객체의 식별이 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히 크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 따라서 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이 객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 눈에 띄는 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다. 그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 
 같은 결과를 도출할 수 있었다.
 
@@ -164,7 +174,7 @@ Top-1 Accuracy란 Softmax Activation Function에서의 Output에서 제일 높�
 본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 또한 Recall과 Precision값이 각각 0.3%, 6.6% 증가하였다.
 
   
-## 10.최종결과물 주요 특징 및 설명  
+## 11.최종결과물 주요 특징 및 설명  
   
 ### [Object Detection]  
   
@@ -175,11 +185,11 @@ Top-1 Accuracy란 Softmax Activation Function에서의 Output에서 제일 높�
 DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모델을 통해 사람과 같은 Object 간 고유하게 구별되는 특징을 갖는 데이터를 학습하고, 이로부터 Id-switching이나 Occlusion(폐색) 문제를 해결하였다. 하지만 본 프로젝트의 사용된 Training Datasets은 Small Size의 조류나 비행기, 드론과 같은 상공 비행 물체이기 때문에, 이전 논문들과 달리 하나의 Class내에서 Object들을 고유하게 분류할만한 특징이 없을 것이라 예상하였다. 그러나 Re-identification 모델 학습 유무에 따라 Object Tracking 성능이 달라지는 것을 확인하였고, 이로부터 Re-identification 모델이 다형성 및 활용성 부분에서 향상됨을 증명하였다.
 
   
-## 11.Deep Sort 데모 영상 
+## 12.Deep Sort 데모 영상 
 ![gif_deepSORT_result](https://github.com/Airspace-Explorer/.github/assets/43543906/22eb1f37-41a7-40a1-beb8-69a371fc6db8)
 
   
-## 12.기대효과 및 활용 방안  
+## 13.기대효과 및 활용 방안  
   
 가. 기대효과  
 - 항공 안전 향상→ 조류 및 무인 항공기의 실시간 탐지 및 추적을 통해 조종사들에게 충돌 사고를 예방하고 항공 안전성을 향상시킬 것으로 기대된다
@@ -196,7 +206,7 @@ DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모�
 - 연구 및 교육 기관→ 대학 및 연구 기관은 수집된 데이터셋과 모델을 활용하여 객체 탐지 및 추적에 관한 연구를 수행하고, 교육 과정에 활용할 수 있다.
 
     
-## 13.결론 및 제언  
+## 14.결론 및 제언  
 프로젝트 결과로 얻은 모델과 데이터는 항공 및 국방 관련 산업에서의 안전 및 효율성 향상에 큰 기여를 할 것으로 기대된다. 미래에는 더 많은 데이터를 수집하고 모델을 튜닝하여 다양한 상황에서의 적용 가능성을 높일수 있을것이다.
 
 
