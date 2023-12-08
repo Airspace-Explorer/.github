@@ -1,4 +1,5 @@
-# 데이터분석캡스톤디자인 프로젝트
+# 다양한 기상 환경에서의상공 이상물체 탐지 및 추적
+
 
 ## 팀명: Airspace-Explorer 
 - 지도 교수: 이대호
@@ -12,7 +13,9 @@
 [조류 충돌]      
 우리 말로 '조류 충돌'이라고 불리는 '버드 스트라이크(Bird Strike)'는 조류가 비행기에 부딪히거나 엔진 속에 빨려 들어가는 현상을 말한다. 주로 공항 부근, 그리고 이착륙 시 주로 발생하는데, 우리나라에서는 조류충돌 사고가 매년 100~200건 이상 발생 하고 있으며 지난해 미국 연방항공청에서는 1만 7천 건이 넘는 신고가 접수 되었다. 실제로 1.8kg의 새가 시속 960km로 비행하는 항공기와 부딪치면 64t 무게의 충격이 발생하며, 전 세계적 피해규모는 연간 약 1조원으로 추정된다. 최근 5년간 항공기-조류간 충돌은 주로 공항구역에서 발생하고 있으며, 이를 예방하기 위해 공항에서는 사격팀 운영, 천적류 사육을 통해 노력하고 있지만 효과가 미비한 상황이다. 그래서 본팀은 최소 수십명에서 많게는 수백명 이상의 사망자를 발생시키는 버드 스트라이크 방지를 위해 Faster-RCNN, YOLOF, SSD 기반의 조류를 실시간으로 Detection 하는 모델을 학습을 통해 구축하여 다양한 기상 환경에서 비행중인 상공물체(조류)를 실시간으로 탐지할 것이며, 또한 Detection 모델과 ReID 모델을 결합하여 DeepSORT 모델을 구축한 뒤 실시간으로 상공 물체(조류)를 추적 할 것이다.
 
-  
+[적성국 무인 항공기의 영공 침범]      
+최근 북한의 무인 항공기의 영공 침입이 문제로 떠오르고 있다. 적의 고정익기와 회전익기, 중대형 무인기의 경우 탐지 및 식별이 쉽고, 금방 격추에 나설테지만 북한이 내세우는 소형 무인기들의 경우 이야기가 다르다. 철새나 풍선 같은 작은 동물이나 물체들 조차 미확인 항적으로 탐지되는 상황에서 상위 부대가 항적 식별에 나서느라 시간이 소요될 수 밖에 없는데, 본팀은 해당 문제를 해결하기 위해 무인 항공기 학습 이미지 데이터셋, 테스트 이미지 데이터셋을 수집하여 버드스트라이크 방지를 위한 모델에 전이학습(Transfer Learning)을 추가로 진행할 예정이다.
+
 ## 2.프로젝트 목표  
 - 3개의 Object Detection Model(Faster-RCNN, YOLOF, SSD) Training & Evaluation & Visualization & Inference 및 성능 최적화 수행
 - DeepSORT에 대한 Detection Model Training, Evaluation & ReID Model Training, Evaluation
@@ -132,18 +135,33 @@ SSD mAP
 
   
 ## 9.DeepSORT를 이용한 Multi Object Tracking 결과  
-MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. 
-Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤 적용하였다. ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 모델은 객체를 식별하기가 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히 크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 결론적으로 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이 객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는 사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다. 그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 같은 결과를 도출할 수 있었다.  
-  
-- ReID Model Training 결과
-![CXAQ](https://github.com/Airspace-Explorer/.github/assets/104192273/b1b6692f-67ea-413c-876d-581471beeaea)  
+MMTracking에서 제공하는 DeepSORT의 경우 Object Detection Model 과 ReID Model을 혼합하여 MOT을 수행할 수 있었다. Detection Model의 경우 본 팀이 구축한 Faster-RCNN, YOLOF, SSD의 Checkpoint 파일에 Tracking Video에 대한 전이 학습(Epochs: 10, Step: 10, Batch Size: 2, # of Training Datasets: 216)을 수행한 뒤 적용하였다.  ReID(Re-Identification) Model의 경우 사용되는 데이터셋의 객체 간의 구별되는 특징이 없는 경우, 객체의 식별이 어려워지고 성능이 제한될 수 있다. 즉 객체 간의 차이가 충분히 크지 않거나 유의미한 특징이 부족하면 다중 객체에 대한 정확한 식별과 추적이 어려워지고 Generalization Performance의 저하를 초래할 수 있다. 따라서 ReID Model을 효과적으로 학습시키기 위해서는 데이터셋이 객체 간의 유의미하고 구별되는 특징을 포함하고 있어야하는데 본 팀의 학습 데이터는사람과 같이 구별되는 특징을 가진 객체가 포함되지 않았기 때문에 ReID Model을 DeepSORT에 적용하였을 때 눈에 띄는 성능의 향상을 불러올 수 있을지 의문을 가지게 되었다. 그래서 ReID Model을 DeepSORT에 적용했을 때와 적용하지 않았을 때의 성능 비교 연구를 수행하였고 아래와 
+같은 결과를 도출할 수 있었다.
 
-- ReID Model을 사용하지 않은 경우 DeepSORT 성능 평가(MOTA: 85.3%, MOTP: 0.228)
+### [ReID Model Training 결과] 
+![image](https://github.com/Airspace-Explorer/.github/assets/43543906/00eb1655-a4e3-49be-9975-d496e1e37755)
+
+### [Triplet Loss → 0.000 (figure 2)] 
+Triplet Loss는 어떤 한 사람(Anchor)과 같은 사람(Positive), 다른 사람(Negative)이라는 파라미터를이용해 학습 시 미니 배치 안에서 Anchor, Positive, Negative들이 임베딩 된 값들의 유클리드 거리를 구해 아래와 같은 Loss 함수를 만든다.
+
+  ![image](https://github.com/Airspace-Explorer/.github/assets/43543906/a9b14d42-8214-473b-902d-ee0aaff85f69)
+
+대괄호 안의 첫번째 항이 의미하는 것은 Anchor와 Positive간의 Distance고, 두번째 항은 Anchor와   Negative와의 Distance이며 α는 마진(Hyper Parameter)을 의미한다. 따라서 L을 최소화한다는 것은 
+Positive와의 거리는 가까워지도록 하고 Negative와의 거리는 멀어지도록 하는 것이다. 즉 Triplet 
+Loss가 0.000이 나왔다는 것은 ReID 모델이 학습 중에 모든 Anchor, Positive, Negative 쌍에 대해 
+거리를 올바르게 구별했다는 의미이며 Anchor와 Positive 간의 거리가 Negative 간의 거리보다 
+작거나 같게 학습되었다는 것을 나타낸다. 즉 이는 모델이 이미 학습 데이터에서 제시된 유사성 및 
+차이를 이해하고 있음을 시사할 수 있다.
+
+### [Top-1 Accuracy: 99.2000 (figure 4)] 
+Top-1 Accuracy란 Softmax Activation Function에서의 Output에서 제일 높은 수치를 가지는 값이 정답일 경우에 대한 지표를 계산한 것을 의미한다. 즉 Top-1 Accuracy가 99.2000와 같이 높은 수치가 나왔다는 것은 해당 ReID 모델이 대부분의 경우에 대해 가장 높은 확률을 가진 클래스를 정확하게 식별한다는 의미이며 이는 모델이 주어진 분류 작업을 잘 수행하고 있음을 나타낸다.
+
+### [ReID Model을 사용하지 않은 경우 DeepSORT 성능 평가(MOTA: 85.3%, MOTP: 0.228)] 
   ![FER](https://github.com/Airspace-Explorer/.github/assets/104192273/6dfcb68a-6edb-416e-88b9-5cd538b56d39)
-- ReID Model을 사용한 경우 DeepSORT 성능 평가(MOTA: 93.0%, MOTP: 0.212)
+### [ReID Model을 사용한 경우 DeepSORT 성능 평가(MOTA: 93.0%, MOTP: 0.212)] 
   ![12345](https://github.com/Airspace-Explorer/.github/assets/104192273/224c379e-5003-445c-846c-78faec6fd15d)
   
-본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 
+본 팀의 예상과는 달리 DeepSORT를 이용한 MOT 수행시 ReID Model을 이용한 경우 MOTA(Multi Object Tracking Accuracy)성능이 7.7% 향상하며, MOTP(Multi Object Tracking Precision) 성능은 0.016% 향상한 것을 확인할 수 있었다. 또한 Recall과 Precision값이 각각 0.3%, 6.6% 증가하였다.
 
   
 ## 10.최종결과물 주요 특징 및 설명  
@@ -158,6 +176,7 @@ DeepSORT와 관련하여 이전에 발표된 논문들은 Re-identification 모�
 
   
 ## 11.Deep Sort 데모 영상 
+![gif_deepSORT_result](https://github.com/Airspace-Explorer/.github/assets/43543906/22eb1f37-41a7-40a1-beb8-69a371fc6db8)
 
   
 ## 12.기대효과 및 활용 방안  
