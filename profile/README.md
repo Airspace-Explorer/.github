@@ -135,7 +135,7 @@ SSD mAP
 ![asdxcz](https://github.com/Airspace-Explorer/.github/assets/104192273/1300493c-1966-4624-a7a2-fb22aa69c31e)  
 
 ## 10.Object Tracking Datasets  
-Bird class를 위한 Detector와 ReID Model 학습 수행을 위해 대중화된 MOT datasets의 보행자나 차량이 아닌 Custom Datasets을 구축해야 했다.따라서 CVAT Tool을 이용하여 Track Rectangle로 각각의 객체를 지정한 다음 Frame마다 상자를 이동시켜 추적 좌표를 저장하고 객체가 화면에서 사라질시 Switch OFF시켜 Ground Truth 파일을 산출했다.gt.txt는 차례로 <Frame number>,<Identity number>,<Bonding box left>,<Bounding box top>,<Bounding box width>,<Bounding box height>,<Confidence score>,<Class>,<Visibility>순이다.Train Dataset은 Video를 Frame Per Second 단위로 분할 뒤 저장하였다.MMtracking의 mot2coco.py,mot2reid.py 파일을 이용해 MOT형식의 COCO Format Annotation과 Bounding Box Image로 구성되어 있는 ReID Datasets으로 변환하여 Multi Object Tracking Datasets을 구축하였다.    
+Bird class를 위한 Detector와 ReID Model 학습 수행을 위해 대중화된 MOT datasets의 보행자나 차량이 아닌 Custom Datasets을 구축해야 했다.따라서 CVAT Tool을 이용하여 Track Rectangle로 각각의 객체를 지정한 다음 Frame마다 상자를 이동시켜 추적 좌표를 저장하고 객체가 화면에서 사라질시 Switch OFF시켜 Ground Truth 파일을 산출했다.gt.txt는 차례로 Frame number,Identity number,Bonding box left,Bounding box top,Bounding box width,Bounding box height,<Confidence score>,Class,Visibility순이다.Train Dataset은 Video를 Frame Per Second 단위로 분할 뒤 저장하였다.MMtracking의 mot2coco.py,mot2reid.py 파일을 이용해 MOT형식의 COCO Format Annotation과 Bounding Box Image로 구성되어 있는 ReID Datasets으로 변환하여 Multi Object Tracking Datasets을 구축하였다.    
 ### [CVAT tool을 활용한 Custom DataSet Labelling]  
 ![1241](https://github.com/Airspace-Explorer/.github/assets/104192273/59b7163d-749e-4f58-b803-7096178aefee)  
 ### [산출된 Ground Truth 파일]  
